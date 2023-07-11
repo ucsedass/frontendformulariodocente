@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ImagenUcse from "../images/ucse.jpg";
+import clienteAxios from "@/config/axios";
 import {
   Box,
   Input,
@@ -17,11 +17,35 @@ import {
 const Index = () => {
   const [sede, setSede] = useState("1");
   const [correo, setCorreo] = useState("0");
+  const [dni, setDni] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+
+  const enviarFormulario = () => {
+    var data = {
+      dni: dni,
+      nombre: nombre,
+      apellido: apellido,
+      sede: sede,
+      correo: correo,
+    };
+    console.log("parametros_________", sede, correo, nombre, apellido, dni);
+    clienteAxios("/nuevoformulariodocente", {
+      method: "POST",
+      data: data,
+    })
+      .then((respuesta) => {
+        console.log(respuesta);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
       <Box bg="blue.200" mb={0} p={2}>
-        <Box w="40%" mx="auto" bgColor="white">
+        <Box w="45%" mx="auto" bgColor="white">
           <Flex bg="blue.600" px={10}>
             <Box w="20%" p={1}>
               <Image src="https://campus.ucse.edu.ar/Imagenes/UCSE.jpg"></Image>
@@ -34,7 +58,7 @@ const Index = () => {
             </Box>
           </Flex>
           <Box bg="blue.600" color="white" px={10} py={1}>
-            <Text>
+            <Text fontSize="1xl">
               Estimado Docente, en base a los siguientes datos procederemos a
               generar su correo institucional, con el cual podrá acceder a
               licencias para toda la Suite de Microsoft Office y un espacio en
@@ -63,17 +87,29 @@ const Index = () => {
                 </Stack>
               </RadioGroup>
             </FormControl>
-            <FormControl mt={3}>
+            <FormControl mt={3} isRequired>
               <FormLabel>DNI</FormLabel>
-              <Input></Input>
+              <Input
+                onChange={(e) => {
+                  setDni(e.target.value);
+                }}
+              ></Input>
             </FormControl>
-            <FormControl mt={3}>
+            <FormControl mt={3} isRequired>
               <FormLabel>Apellido</FormLabel>
-              <Input></Input>
+              <Input
+                onChange={(e) => {
+                  setApellido(e.target.value);
+                }}
+              ></Input>
             </FormControl>
-            <FormControl mt={3}>
+            <FormControl mt={3} isRequired>
               <FormLabel>Nombre</FormLabel>
-              <Input></Input>
+              <Input
+                onChange={(e) => {
+                  setNombre(e.target.value);
+                }}
+              ></Input>
             </FormControl>
             <FormControl mt={3}>
               <FormLabel>
@@ -86,7 +122,7 @@ const Index = () => {
                 </Stack>
               </RadioGroup>
             </FormControl>
-            <Button w="100%" colorScheme="blue">
+            <Button w="100%" colorScheme="blue" onClick={enviarFormulario}>
               Enviar
             </Button>
           </Box>
