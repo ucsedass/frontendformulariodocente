@@ -15,11 +15,12 @@ import {
 } from "@chakra-ui/react";
 
 const Index = () => {
-  const [sede, setSede] = useState("1");
-  const [correo, setCorreo] = useState("0");
+  const [sede, setSede] = useState("San Salvador de Jujuy");
+  const [correo, setCorreo] = useState("NO");
   const [dni, setDni] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
+  const [error, setError] = useState(true);
 
   const enviarFormulario = () => {
     var data = {
@@ -30,28 +31,50 @@ const Index = () => {
       correo: correo,
     };
     console.log("parametros_________", sede, correo, nombre, apellido, dni);
-    clienteAxios("/nuevoformulariodocente", {
-      method: "POST",
-      data: data,
-    })
-      .then((respuesta) => {
-        console.log(respuesta);
+    if (nombre !== "" && apellido !== "") {
+      clienteAxios("/nuevoformulariodocente", {
+        method: "POST",
+        data: data,
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((respuesta) => {
+          console.log(respuesta);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setError(true);
+      console.log("error");
+    }
+  };
+
+  const validarCampos = () => {
+    if ([nombre, apellido].includes("")) {
+      setError(true);
+    } else {
+      if (dni === 0) {
+        setError(true);
+      } else {
+        setError(false);
+      }
+    }
   };
 
   return (
     <>
       <Box bg="blue.200" mb={0} p={2}>
-        <Box w="45%" mx="auto" bgColor="white">
-          <Flex bg="blue.600" px={10}>
+        <Box w="60%" mx="auto" bgColor="white">
+          <Flex bg="blue.600" px={10} h="80px">
             <Box w="20%" p={1}>
-              <Image src="https://campus.ucse.edu.ar/Imagenes/UCSE.jpg"></Image>
+              <Image
+                mx="auto"
+                src="https://campus.ucse.edu.ar/Imagenes/UCSE.jpg"
+                h="100%"
+                w="60%"
+              ></Image>
             </Box>
             <Box w="80%" color="white">
-              <Text fontSize="4xl">
+              <Text fontSize="2xl">
                 Cuentas para Docentes UCSE en Microsoft Office 365 Formulario de
                 Alta - Actualización
               </Text>
@@ -80,16 +103,21 @@ const Index = () => {
               <FormLabel>Sede</FormLabel>
               <RadioGroup onChange={setSede} value={sede}>
                 <Stack direction="column">
-                  <Radio value="1">SANTIAGO DEL ESTERO</Radio>
-                  <Radio value="2">SAN SALVADOR DE JUJUY</Radio>
-                  <Radio value="3">BUENOS AIRES</Radio>
-                  <Radio value="4">RAFAELA</Radio>
+                  <Radio value="Santiago del Estero">SANTIAGO DEL ESTERO</Radio>
+                  <Radio value="San Salvador de Jujuy">
+                    SAN SALVADOR DE JUJUY
+                  </Radio>
+                  <Radio value="Buenos Aires">BUENOS AIRES</Radio>
+                  <Radio value="Rafaela">RAFAELA</Radio>
                 </Stack>
               </RadioGroup>
             </FormControl>
-            <FormControl mt={3} isRequired>
+            <FormControl mt={3} isRequired={error}>
               <FormLabel>DNI</FormLabel>
               <Input
+                onBlur={validarCampos}
+                type="number"
+                pattern="[0-9]"
                 onChange={(e) => {
                   setDni(e.target.value);
                 }}
@@ -98,6 +126,7 @@ const Index = () => {
             <FormControl mt={3} isRequired>
               <FormLabel>Apellido</FormLabel>
               <Input
+                onBlur={validarCampos}
                 onChange={(e) => {
                   setApellido(e.target.value);
                 }}
@@ -106,6 +135,7 @@ const Index = () => {
             <FormControl mt={3} isRequired>
               <FormLabel>Nombre</FormLabel>
               <Input
+                onBlur={validarCampos}
                 onChange={(e) => {
                   setNombre(e.target.value);
                 }}
@@ -117,14 +147,20 @@ const Index = () => {
               </FormLabel>
               <RadioGroup onChange={setCorreo} value={correo}>
                 <Stack direction="column">
-                  <Radio value="0">NO</Radio>
-                  <Radio value="1">SI</Radio>
+                  <Radio value="NO">NO</Radio>
+                  <Radio value="SI">SI</Radio>
                 </Stack>
               </RadioGroup>
             </FormControl>
-            <Button w="100%" colorScheme="blue" onClick={enviarFormulario}>
+            <Button
+              mt={2}
+              w="100%"
+              colorScheme="orange"
+              onClick={enviarFormulario}
+            >
               Enviar
             </Button>
+            {error && <Box bgColor="red.200">error</Box>}
           </Box>
         </Box>
       </Box>
