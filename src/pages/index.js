@@ -63,25 +63,23 @@ const Index = () => {
   return (
     <>
       <Box bg="blue.200" mb={0} p={2}>
-        <Box w="60%" mx="auto" bgColor="white">
-          <Flex bg="blue.600" px={10} h="80px">
+        <Box w="40%" mx="auto" bgColor="white">
+          <Flex bg="blue.600" px={10}>
             <Box w="20%" p={1}>
               <Image
                 mx="auto"
                 src="https://campus.ucse.edu.ar/Imagenes/UCSE.jpg"
-                h="100%"
-                w="60%"
               ></Image>
             </Box>
             <Box w="80%" color="white">
-              <Text fontSize="2xl">
+              <Text fontSize="4xl">
                 Cuentas para Docentes UCSE en Microsoft Office 365 Formulario de
                 Alta - Actualización
               </Text>
             </Box>
           </Flex>
           <Box bg="blue.600" color="white" px={10} py={1}>
-            <Text fontSize="1xl">
+            <Text fontSize="sm">
               Estimado Docente, en base a los siguientes datos procederemos a
               generar su correo institucional, con el cual podrá acceder a
               licencias para toda la Suite de Microsoft Office y un espacio en
@@ -100,10 +98,12 @@ const Index = () => {
           </Box>
           <Box px={10} py={2}>
             <FormControl mt={3}>
-              <FormLabel>Sede</FormLabel>
-              <RadioGroup onChange={setSede} value={sede}>
+              <FormLabel fontSize={14}>Sede</FormLabel>
+              <RadioGroup onChange={setSede} value={sede} size={"md"}>
                 <Stack direction="column">
-                  <Radio value="Santiago del Estero">SANTIAGO DEL ESTERO</Radio>
+                  <Radio value="Santiago del Estero" size="md">
+                    SANTIAGO DEL ESTERO
+                  </Radio>
                   <Radio value="San Salvador de Jujuy">
                     SAN SALVADOR DE JUJUY
                   </Radio>
@@ -112,8 +112,8 @@ const Index = () => {
                 </Stack>
               </RadioGroup>
             </FormControl>
-            <FormControl mt={3} isRequired={error}>
-              <FormLabel>DNI</FormLabel>
+            <FormControl mt={3}>
+              <FormLabel fontSize={14}>Dni</FormLabel>
               <Input
                 onBlur={validarCampos}
                 type="number"
@@ -123,8 +123,8 @@ const Index = () => {
                 }}
               ></Input>
             </FormControl>
-            <FormControl mt={3} isRequired>
-              <FormLabel>Apellido</FormLabel>
+            <FormControl mt={3}>
+              <FormLabel fontSize={14}>Apellido</FormLabel>
               <Input
                 onBlur={validarCampos}
                 onChange={(e) => {
@@ -132,8 +132,8 @@ const Index = () => {
                 }}
               ></Input>
             </FormControl>
-            <FormControl mt={3} isRequired>
-              <FormLabel>Nombre</FormLabel>
+            <FormControl mt={3}>
+              <FormLabel fontSize={14}>Nombre</FormLabel>
               <Input
                 onBlur={validarCampos}
                 onChange={(e) => {
