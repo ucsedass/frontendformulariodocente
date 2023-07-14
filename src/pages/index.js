@@ -10,20 +10,17 @@ import {
   RadioGroup,
   Stack,
   Button,
-  Flex,
-  Image,
-  HStack,
   SimpleGrid,
   Center,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
   VStack,
   Icon,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import {
   FaRegSave,
@@ -120,9 +117,9 @@ const Index = () => {
 
   return (
     <>
-      <Box mt={6}>
+      <Box mt={5}>
         <Center fontSize={"2xl"}>FORMULARIO DOCENTE</Center>
-        <Box w="85%" mx="auto" bgColor="white">
+        <Box mt={3} w="80%" mx="auto" bgColor="white">
           <Box color="black" border="1px" px={10} py={1}>
             <Text fontSize="sm">
               Estimado Docente, en base a los siguientes datos procederemos a
@@ -262,39 +259,47 @@ const Index = () => {
                     }}
                   ></Input>
                 </FormControl>
-                <FormControl>
-                  <FormLabel fontSize={14}>
-                    Codigo de area (sin el prefijo 0). Ej: 385
-                  </FormLabel>
-                  <Input
-                    value={celCodArea}
-                    type="number"
-                    maxLength="3"
-                    pattern="[0-9]"
-                    size="sm"
-                    onChange={(e) => {
-                      setCelCodArea(e.target.value);
-                    }}
-                  ></Input>
-                </FormControl>
-                <FormControl>
-                  <FormLabel fontSize={14}>
-                    Celular (Sin el prefijo 15) Ej: 5888888
-                  </FormLabel>
-                  <Input
-                    value={celular}
-                    type="number"
-                    pattern="[0-9]"
-                    size="sm"
-                    onChange={(e) => {
-                      setCelular(e.target.value);
-                    }}
-                  ></Input>
-                </FormControl>
+
+                <Grid templateColumns="repeat(3, 1fr)" gap={2} mt={3}>
+                  <GridItem w="100%">
+                    <FormControl>
+                      <FormLabel fontSize={14}>
+                        Cod (sin el prefijo 0)
+                      </FormLabel>
+                      <Input
+                        value={celCodArea}
+                        type="number"
+                        maxLength="3"
+                        pattern="[0-9]"
+                        size="sm"
+                        onChange={(e) => {
+                          setCelCodArea(e.target.value);
+                        }}
+                      ></Input>
+                    </FormControl>
+                  </GridItem>
+                  <GridItem colSpan={2} w="100%">
+                    {" "}
+                    <FormControl>
+                      <FormLabel fontSize={14}>
+                        Celular (Sin el prefijo 15) Ej: 5888888
+                      </FormLabel>
+                      <Input
+                        value={celular}
+                        type="number"
+                        pattern="[0-9]"
+                        size="sm"
+                        onChange={(e) => {
+                          setCelular(e.target.value);
+                        }}
+                      ></Input>
+                    </FormControl>
+                  </GridItem>
+                </Grid>
               </Box>
             </Box>
           </SimpleGrid>
-          <Box>
+          <Box mt={3}>
             <Button
               size="sm"
               mt={2}
