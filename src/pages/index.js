@@ -143,7 +143,7 @@ const Index = () => {
               <Center>POR FAVOR COMPLETE TODOS LOS CAMPOS</Center>
             </Box>
           )}
-          <SimpleGrid columns={2} spacing={0}>
+          <SimpleGrid columns={{ base: "1", sm: "1", lg: "2" }} spacing={0}>
             <Box px={10}>
               <FormControl mt={3}>
                 <FormLabel fontSize={14}>Sede</FormLabel>

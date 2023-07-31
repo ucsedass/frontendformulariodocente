@@ -6,8 +6,8 @@ const Layout = (props) => {
   return (
     <>
       {/* <Nav /> */}
-      <Box h={20} bg="blue.500">
-        <Center fontSize="4xl" color="white">
+      <Box py={5} bg="blue.500">
+        <Center fontSize={{ base: "1xl", sm: "1xl", lg: "3xl" }} color="white">
           <Image></Image>
           <Text>
             Cuentas para Docentes UCSE en Microsoft Office 365 Formulario de
