@@ -46,6 +46,8 @@ const Index = () => {
   const [modalExito, setModalExito] = useState(false);
 
   const enviarFormulario = () => {
+    const letras = /^[a-zA-Z\s]+$/;
+    const numeros = /^[0-9]+$/;
     var data = {
       dni: dni,
       nombre: nombre,
@@ -73,23 +75,34 @@ const Index = () => {
     ) {
       setError(true);
     } else {
-      if (dni === 0 || celCodArea === 0 || celular === 0) {
+      if (
+        dni === 0 ||
+        celCodArea === 0 ||
+        celular === 0 ||
+        !dni.match(numeros) ||
+        !celCodArea.match(numeros) ||
+        !celular.match(numeros)
+      ) {
         setError(true);
       } else {
-        clienteAxios("/nuevoformulariodocente", {
-          method: "POST",
-          data: data,
-        })
-          .then((respuesta) => {
-            console.log(respuesta);
-            setModalExito(true);
-            setError(false);
-            limpiarCampos();
+        if (!apellido.match(letras) || !nombre.match(letras)) {
+          setError(true);
+        } else {
+          clienteAxios("/nuevoformulariodocente", {
+            method: "POST",
+            data: data,
           })
-          .catch((error) => {
-            console.log(error);
-            setError(true);
-          });
+            .then((respuesta) => {
+              console.log(respuesta);
+              setModalExito(true);
+              setError(false);
+              limpiarCampos();
+            })
+            .catch((error) => {
+              console.log(error);
+              setError(true);
+            });
+        }
       }
     }
   };
