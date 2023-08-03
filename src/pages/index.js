@@ -21,6 +21,7 @@ import {
   Icon,
   Grid,
   GridItem,
+  Link,
 } from "@chakra-ui/react";
 import {
   FaRegSave,
@@ -129,13 +130,16 @@ const Index = () => {
               institucional en UCSE, solicitamos registre su cuenta a efectos de
               actualizar nuestra base de datos de contactos. Le recordamos que
               con su cuenta puede acceder a todas las aplicaciones de Microsoft
-              Office 365 desde http://portal.office.com. NOTAS: - TODOS LOS
-              CAMPOS SON OBLIGATORIOS (*). - Sea preciso con el ingreso de los
-              datos a los efectos de evitar errores y posteriores
-              rectificaciones. - La presente solicitud será desestimada si el
-              Nro de Documento ingresado no coincide con datos registrados en
-              UCSE. Nota: la creación de su cuenta será procesada dentro de las
-              próximas 48hs hábiles.
+              Office 365 desde{" "}
+              <Link color={"blue"} href="http://portal.office.com" isExternal>
+                http://portal.office.com
+              </Link>
+              . NOTAS: - TODOS LOS CAMPOS SON OBLIGATORIOS (*). - Sea preciso
+              con el ingreso de los datos a los efectos de evitar errores y
+              posteriores rectificaciones. - La presente solicitud será
+              desestimada si el Nro de Documento ingresado no coincide con datos
+              registrados en UCSE. Nota: la creación de su cuenta será procesada
+              dentro de las próximas 48hs hábiles.
             </Text>
           </Box>
           {error && (
