@@ -124,12 +124,12 @@ const Index = () => {
   };
   useEffect(() => {
     if (correo === "NO") {
-      setCorreoInstitucional(" ");
-      setCorreoAlternativo(" ");
+      setCorreoInstitucional("");
+      setCorreoAlternativo("");
     }
 
     if (correo === "SI") {
-      setCorreoPersonal(" ");
+      setCorreoPersonal("");
     }
   }, [correo]);
 
@@ -261,15 +261,26 @@ const Index = () => {
                 </FormControl>
                 {correo === "SI" ? (
                   <Box>
-                    <FormControl mt={3}>
+                    <FormControl mt={3} isInvalid={errors.correoInstitucional}>
                       <FormLabel fontSize={14}>Cuenta de correo UCSE</FormLabel>
                       <Input
+                        {...register("correoInstitucional", {
+                          required: correo == "SI" ? true : false,
+                        })}
+                        aria-invalid={
+                          errors.correoInstitucional ? "true" : "false"
+                        }
                         value={correoInstitucional}
                         size="sm"
                         onChange={(e) => {
                           setCorreoInstitucional(e.target.value);
                         }}
                       ></Input>
+                      {errors.correoInstitucional ? (
+                        <FormHelperText color={"red"}>
+                          * Correo institucional inválido.
+                        </FormHelperText>
+                      ) : null}
                     </FormControl>
                     <FormControl mt={3}>
                       <FormLabel fontSize={14}>
@@ -286,18 +297,27 @@ const Index = () => {
                   </Box>
                 ) : (
                   <Box>
-                    <FormControl mt={3}>
+                    <FormControl mt={3} isInvalid={errors.correoPersonal}>
                       <FormLabel fontSize={14}>
                         Email (dirección a donde se enviarán las credenciales de
                         su cuenta Microsoft)
                       </FormLabel>
                       <Input
+                        {...register("correoPersonal", {
+                          required: correo == "NO" ? true : false,
+                        })}
+                        aria-invalid={errors.correoPersonal ? "true" : "false"}
                         value={correoPersonal}
                         size="sm"
                         onChange={(e) => {
                           setCorreoPersonal(e.target.value);
                         }}
-                      ></Input>
+                      ></Input>{" "}
+                      {errors.correoPersonal ? (
+                        <FormHelperText color={"red"}>
+                          * Correo personal inválido.
+                        </FormHelperText>
+                      ) : null}
                     </FormControl>
                   </Box>
                 )}
