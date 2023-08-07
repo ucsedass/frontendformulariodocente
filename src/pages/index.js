@@ -189,6 +189,8 @@ const Index = () => {
                     {...register("dni", {
                       required: true,
                       pattern: /^[0-9]+$/,
+                      min: 500000,
+                      max: 999999999,
                     })}
                     aria-invalid={errors.dni ? "true" : "false"}
                     value={dni}
@@ -266,6 +268,7 @@ const Index = () => {
                       <Input
                         {...register("correoInstitucional", {
                           required: correo == "SI" ? true : false,
+                          pattern: correo == "SI" ? /^\S+@\S+$/i : null,
                         })}
                         aria-invalid={
                           errors.correoInstitucional ? "true" : "false"
@@ -305,6 +308,7 @@ const Index = () => {
                       <Input
                         {...register("correoPersonal", {
                           required: correo == "NO" ? true : false,
+                          pattern: correo == "NO" ? /^\S+@\S+$/i : null,
                         })}
                         aria-invalid={errors.correoPersonal ? "true" : "false"}
                         value={correoPersonal}
@@ -355,11 +359,12 @@ const Index = () => {
                           {...register("celCodArea", {
                             required: true,
                             pattern: /^[0-9]+$/,
+                            min: 0,
+                            max: 999,
                           })}
                           aria-invalid={errors.celCodArea ? "true" : "false"}
                           value={celCodArea}
                           type="number"
-                          maxLength="3"
                           pattern="[0-9]"
                           size="sm"
                           onChange={(e) => {
@@ -383,6 +388,8 @@ const Index = () => {
                           {...register("celular", {
                             required: true,
                             pattern: /^[0-9]+$/,
+                            min: 0,
+                            max: 9999999,
                           })}
                           aria-invalid={errors.celular ? "true" : "false"}
                           value={celular}
